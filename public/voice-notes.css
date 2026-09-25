@@ -7,7 +7,9 @@
 
 /* Stickers spread from the beginning through the middle and ending. */
 .sticker-heart{left:-65px;top:18%;rotate:-12deg}.sticker-head{right:-55px;top:46%;rotate:8deg;animation-delay:-2s}.sticker-love{left:-55px;right:auto;top:auto;bottom:4%;rotate:-9deg;animation-delay:-4s}
+.sticker-love{width:clamp(270px,32vw,460px);height:clamp(270px,32vw,460px)}
 @media(max-width:760px){.voice-page{padding-bottom:145px}.voice-sticker{width:135px;height:135px}.sticker-heart{left:-45px;top:19%}.sticker-head{right:-43px;top:48%}.sticker-love{left:-42px;right:auto;bottom:0}}
+@media(max-width:760px){.sticker-love{width:205px;height:205px;left:-55px;bottom:-15px}}
 
 /* Let large stickers cross the section boundary without a visible rectangular cut. */
 html,body{overflow-x:clip}.voice-page{width:100vw;max-width:none;margin-left:calc(50% - 50vw);overflow:visible}
