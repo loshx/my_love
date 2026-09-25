@@ -4,3 +4,14 @@
 @keyframes now-float{0%,100%{translate:0 0;rotate:-10deg}50%{translate:0 -12px;rotate:10deg}}@keyframes now-pulse{0%,100%{scale:.9;filter:drop-shadow(0 0 2px #e8a7c455)}50%{scale:1.18;filter:drop-shadow(0 0 10px #e8a7c4aa)}}
 @media(max-width:760px){.now-chat{grid-template-columns:1fr;gap:45px;padding:75px 4px 95px;text-align:center}.now-chat-copy>span{font-size:12px}.now-chat-photo{width:72%;max-width:285px}.now-heart-line{margin-top:20px}.heart-a{left:-23px}.heart-b{right:-20px}}
 @media(prefers-reduced-motion:reduce){.now-chat-reveal,.now-chat-photo.now-chat-reveal{opacity:1;transform:none;transition:none}.now-floating-heart,.now-heart-line b{animation:none}}
+
+/* Scroll-linked reveal, matching the first printed chat. */
+.now-chat{isolation:isolate;padding-bottom:150px}
+.now-chat-reveal{opacity:var(--now-opacity,0);transform:translateY(var(--now-lift,55px)) rotate(var(--now-rotate,-7deg)) scale(var(--now-scale,1.18));transform-origin:20% 50%;transition:opacity .22s ease-out,transform .22s ease-out}
+.now-chat-photo.now-chat-reveal{transform:translateY(var(--now-lift,105px)) rotate(var(--now-rotate,-19deg)) scale(var(--now-scale,1.42));transform-origin:50% 20%}
+.telegram-stickers{position:absolute;inset:0;z-index:3;pointer-events:none}
+.telegram-sticker{position:absolute;width:clamp(68px,8vw,112px);height:clamp(68px,8vw,112px);object-fit:contain;border-radius:18px;opacity:var(--sticker-reveal,0);scale:var(--sticker-scale,.45);filter:drop-shadow(0 12px 18px #000a);animation:sticker-float var(--float-time,7s) ease-in-out var(--float-delay,0s) infinite;transition:opacity .22s ease-out,scale .22s ease-out}
+.sticker-1{left:43%;top:7%;--float-time:7.4s;--float-delay:-2s}.sticker-2{right:3%;top:8%;--float-time:8.2s;--float-delay:-5s}.sticker-3{left:47%;bottom:8%;--float-time:6.8s;--float-delay:-1s}.sticker-4{right:1%;bottom:5%;--float-time:7.8s;--float-delay:-4s}.sticker-5{left:2%;bottom:5%;--float-time:8.6s;--float-delay:-6s}.sticker-6{left:1%;top:10%;--float-time:7.1s;--float-delay:-3s}.sticker-7{right:33%;top:1%;--float-time:9s;--float-delay:-7s}.sticker-8{right:36%;bottom:0;--float-time:7.6s;--float-delay:-2.5s}
+@keyframes sticker-float{0%,100%{translate:0 0;rotate:-5deg}50%{translate:0 -14px;rotate:5deg}}
+@media(max-width:760px){.now-chat{padding-top:95px;padding-bottom:150px}.now-chat-reveal{transform-origin:50% 50%}.telegram-sticker{width:66px;height:66px}.sticker-1{left:2%;top:2%}.sticker-2{right:1%;top:4%}.sticker-3{left:2%;bottom:4%}.sticker-4{right:1%;bottom:3%}.sticker-5{left:19%;bottom:0}.sticker-6{left:23%;top:1%}.sticker-7{right:22%;top:1%}.sticker-8{right:20%;bottom:0}}
+@media(prefers-reduced-motion:reduce){.now-chat-reveal{opacity:1;transform:none;transition:none}.telegram-sticker{opacity:1;scale:1;animation:none}}
