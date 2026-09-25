@@ -20,3 +20,8 @@
 .invite-note textarea{border-color:#dc5c8a55;border-radius:20px;background:#1c1119cc}.invite-submit{border-radius:999px;background:linear-gradient(110deg,#f06a98,#c33d6c);box-shadow:0 14px 35px #d83e7355}
 @keyframes invite-heart-float{0%,100%{transform:translateY(0) rotate(-8deg) scale(.9)}50%{transform:translateY(-16px) rotate(8deg) scale(1.15);opacity:.55}}
 @media(max-width:760px){.date-invite{padding-inline:15px}.date-form{padding:5px 0;text-align:left}.date-choice{flex-basis:72px}.place-grid{grid-template-columns:1fr 1fr}.place-grid label>span{justify-content:center;padding:13px 8px}.invite-heart-rain i{opacity:.22}}
+
+/* Full-bleed layout and an always-visible mobile picker. */
+.date-invite{width:100vw;max-width:none;margin-left:calc(50% - 50vw)}
+.date-form,.date-form.invite-sent{background:none!important;border:0!important;box-shadow:none!important;border-radius:0!important}
+@media(max-width:760px){.date-invite{width:100vw;margin-left:calc(50% - 50vw);padding:75px 14px 95px;overflow:visible}.date-form{width:100%;padding:0!important}.date-form.invite-reveal,.invite-copy.invite-reveal{opacity:1!important;transform:none!important}.date-scroll{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;overflow:visible;padding:4px 0 14px}.date-choice{min-width:0;min-height:96px;padding:10px 3px;border-radius:19px}.date-choice strong{font-size:28px}.date-choice small,.date-choice span{font-size:8px;letter-spacing:.5px}}

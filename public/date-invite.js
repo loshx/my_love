@@ -8,11 +8,11 @@
   const dateScroll = form.querySelector('#date-scroll');
   const dayNames = ['Dum', 'Lun', 'Mar', 'Mie', 'Joi', 'Vin', 'Sâm'];
   const monthNames = ['ian', 'feb', 'mar', 'apr', 'mai', 'iun', 'iul', 'aug', 'sept', 'oct', 'nov', 'dec'];
-  const start = new Date();
-  start.setHours(12, 0, 0, 0);
-  for (let offset = 0; offset < 21; offset += 1) {
-    const day = new Date(start);
-    day.setDate(start.getDate() + offset);
+  const availableDates = [
+    new Date(2026, 8, 28, 12), new Date(2026, 8, 29, 12), new Date(2026, 8, 30, 12),
+    new Date(2026, 9, 1, 12), new Date(2026, 9, 2, 12)
+  ];
+  availableDates.forEach(day => {
     const value = `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, '0')}-${String(day.getDate()).padStart(2, '0')}`;
     const choice = document.createElement('button');
     choice.type = 'button';
@@ -20,7 +20,7 @@
     choice.dataset.date = value;
     choice.setAttribute('role', 'radio');
     choice.setAttribute('aria-checked', 'false');
-    choice.innerHTML = `<small>${offset === 0 ? 'Azi' : dayNames[day.getDay()]}</small><strong>${day.getDate()}</strong><span>${monthNames[day.getMonth()]}</span>`;
+    choice.innerHTML = `<small>${dayNames[day.getDay()]}</small><strong>${day.getDate()}</strong><span>${monthNames[day.getMonth()]}</span>`;
     choice.addEventListener('click', () => {
       dateScroll.querySelectorAll('.date-choice').forEach(item => { item.classList.remove('selected'); item.setAttribute('aria-checked', 'false'); });
       choice.classList.add('selected');
@@ -28,7 +28,7 @@
       dateInput.value = value;
     });
     dateScroll.append(choice);
-  }
+  });
 
   function makeNotepad(data) {
     const date = new Date(`${data.date}T12:00:00`);
