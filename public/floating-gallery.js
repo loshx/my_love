@@ -42,6 +42,7 @@
     button.style.setProperty('--float-time', `${6.5 + Math.random() * 5}s`);
     button.style.setProperty('--float-delay', `${-Math.random() * 8}s`);
     button.style.setProperty('--drift-x', `${Math.round((Math.random() - .5) * 22)}px`);
+    button.style.setProperty('--photo-scale', (0.82 + Math.random() * .34).toFixed(2));
     button.setAttribute('aria-label', `Deschide amintirea ${index + 1}: ${message}`);
     button.innerHTML = `<span class="gallery-tape"></span><img src="images/noi${index + 1}.jpg" alt="Amintirea noastră ${index + 1}" loading="lazy" decoding="async"><span class="photo-number">${String(index + 1).padStart(2, '0')}</span>`;
     button.addEventListener('click', () => openPhoto(index));
@@ -49,19 +50,21 @@
   });
   function arrangeScatter() {
     const mobile = innerWidth <= 760;
-    const columns = mobile ? 3 : 6;
-    const rows = Math.ceil(messages.length / columns);
-    const cells = Array.from({ length: columns * rows }, (_, index) => index);
-    for (let index = cells.length - 1; index > 0; index -= 1) {
-      const swap = Math.floor(Math.random() * (index + 1));
-      [cells[index], cells[swap]] = [cells[swap], cells[index]];
-    }
+    const positions = [];
     sphere.querySelectorAll('.floating-photo').forEach((photo, index) => {
-      const cell = cells[index];
-      const column = cell % columns;
-      const row = Math.floor(cell / columns);
-      const x = ((column + .5 + (Math.random() - .5) * .48) / columns) * 100;
-      const y = ((row + .5 + (Math.random() - .5) * .42) / rows) * 100;
+      let point;
+      for (let attempt = 0; attempt < 120; attempt += 1) {
+        const candidate = { x: 5 + Math.random() * 90, y: 4 + Math.random() * 92 };
+        const clear = positions.every(item => {
+          const dx = (candidate.x - item.x) / (mobile ? 16 : 11);
+          const dy = (candidate.y - item.y) / (mobile ? 10 : 15);
+          return dx * dx + dy * dy > 1;
+        });
+        if (clear || attempt === 119) { point = candidate; break; }
+      }
+      positions.push(point);
+      const x = point.x;
+      const y = point.y;
       photo.style.left = `${x}%`;
       photo.style.top = `${y}%`;
     });
