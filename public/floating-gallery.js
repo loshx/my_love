@@ -20,11 +20,13 @@
     'Îmi place viața în care exiști tu.',
     'Tot spre tine mă întorc.',
     'Ești cea mai frumoasă parte din mine.',
-    'Și povestea noastră abia începe. ♡'
+    'Și povestea noastră abia începe. ♡',
+    'Te-aș alege în fiecare poveste.',
+    'Cu tine vreau toate zilele care vin. ♥'
   ];
-  const tilts = [-7, 5, -3, 8, -5, 4, -8, 3, 7, -4, 5, -6, 3, -2, 8, -5, 4];
+  const tilts = [-9, 6, -4, 10, -7, 5, -11, 4, 8, -6, 7, -8, 5, -3, 9, -7, 6, -5, 8];
   const sphere = document.createElement('div');
-  sphere.className = 'sphere-core';
+  sphere.className = 'scatter-core';
   gallery.append(sphere);
   const dialogImage = dialog.querySelector('.gallery-large-image');
   const dialogMessage = dialog.querySelector('#gallery-message');
@@ -36,29 +38,35 @@
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'floating-photo';
-    button.style.setProperty('--tilt', `${tilts[index] * .45}deg`);
+    button.style.setProperty('--tilt', `${tilts[index]}deg`);
+    button.style.setProperty('--float-time', `${6.5 + Math.random() * 5}s`);
+    button.style.setProperty('--float-delay', `${-Math.random() * 8}s`);
+    button.style.setProperty('--drift-x', `${Math.round((Math.random() - .5) * 22)}px`);
     button.setAttribute('aria-label', `Deschide amintirea ${index + 1}: ${message}`);
     button.innerHTML = `<span class="gallery-tape"></span><img src="images/noi${index + 1}.jpg" alt="Amintirea noastră ${index + 1}" loading="lazy" decoding="async"><span class="photo-number">${String(index + 1).padStart(2, '0')}</span>`;
     button.addEventListener('click', () => openPhoto(index));
     sphere.append(button);
   });
-  function arrangeSphere() {
-    const radius = innerWidth <= 760 ? 185 : 335;
-    const total = messages.length;
+  function arrangeScatter() {
+    const mobile = innerWidth <= 760;
+    const columns = mobile ? 3 : 6;
+    const rows = Math.ceil(messages.length / columns);
+    const cells = Array.from({ length: columns * rows }, (_, index) => index);
+    for (let index = cells.length - 1; index > 0; index -= 1) {
+      const swap = Math.floor(Math.random() * (index + 1));
+      [cells[index], cells[swap]] = [cells[swap], cells[index]];
+    }
     sphere.querySelectorAll('.floating-photo').forEach((photo, index) => {
-      const y = 1 - (index / (total - 1)) * 2;
-      const ring = Math.sqrt(1 - y * y);
-      const angle = Math.PI * (3 - Math.sqrt(5)) * index;
-      const x = Math.cos(angle) * ring;
-      const z = Math.sin(angle) * ring;
-      photo.style.setProperty('--sphere-x', `${x * radius}px`);
-      photo.style.setProperty('--sphere-y', `${y * radius}px`);
-      photo.style.setProperty('--sphere-z', `${z * radius}px`);
-      photo.style.setProperty('--depth', String((z + 1) / 2));
+      const cell = cells[index];
+      const column = cell % columns;
+      const row = Math.floor(cell / columns);
+      const x = ((column + .5 + (Math.random() - .5) * .48) / columns) * 100;
+      const y = ((row + .5 + (Math.random() - .5) * .42) / rows) * 100;
+      photo.style.left = `${x}%`;
+      photo.style.top = `${y}%`;
     });
   }
-  arrangeSphere();
-  addEventListener('resize', arrangeSphere, { passive: true });
+  arrangeScatter();
 
   function showPhoto(index) {
     current = (index + messages.length) % messages.length;
