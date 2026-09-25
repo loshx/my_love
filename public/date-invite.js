@@ -71,7 +71,11 @@
       return;
     }
     if (!form.reportValidity()) return;
-    const data = Object.fromEntries(new FormData(form));
+    const data = {
+      date: dateInput.value,
+      place: form.querySelector('input[name="place"]:checked')?.value || '',
+      message: ''
+    };
     button.disabled = true;
     status.textContent = 'Păstrez răspunsul tău…';
     try {

@@ -49,6 +49,9 @@ test('accepts the custom invitation date and place', async () => {
     assert.equal((await request(invitation)).code, 200);
     assert.match(stored, /2026-10-03/);
     assert.match(stored, /Kebab/);
+    assert.equal((await request({ date: '2026-09-28', place: 'cinema', message: '' })).code, 200);
+    assert.match(stored, /2026-09-28/);
+    assert.match(stored, /Cinema/);
     assert.equal((await request({ ...invitation, date: 'nu-este-o-data' })).code, 400);
   } finally {
     delete globalThis.__blobTest;
