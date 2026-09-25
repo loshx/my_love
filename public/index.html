@@ -13,6 +13,8 @@
 <script defer src="now-chat.js?v=2"></script>
 <link rel="stylesheet" href="voice-notes.css?v=6">
 <script defer src="voice-notes.js?v=3"></script>
+<link rel="stylesheet" href="date-invite.css?v=1">
+<script defer src="date-invite.js?v=1"></script>
 <script defer src="lightbox.js?v=2"></script>
 <script type="module" src="cosmos.js?v=2"></script><script defer src="app.js?v=15"></script>
 </head>
@@ -117,6 +119,35 @@
     <span>Atinge o fotografie. Fiecare păstrează ceva ce vreau să-ți spun.</span>
   </header>
   <div class="gallery-sky" id="gallery-sky"></div>
+</section>
+<section class="date-invite" aria-labelledby="date-invite-title">
+  <div class="invite-copy invite-reveal">
+    <p>URMĂTOAREA NOASTRĂ AMINTIRE</p>
+    <h2 id="date-invite-title">Vrei să ieși<br><em>la o întâlnire cu mine?</em></h2>
+    <span>Tu alegi ziua, ora și locul. Eu vin cu emoțiile și cu dragul de tine.</span>
+    <div class="invite-hearts" aria-hidden="true">♡ ♥ ♡</div>
+  </div>
+  <form class="date-form invite-reveal" id="date-form">
+    <fieldset class="when-fields">
+      <legend>01 · Când ne vedem?</legend>
+      <label><span>Ziua</span><input id="invite-date" name="date" type="date" required></label>
+      <label><span>Ora</span><input name="time" type="time" required></label>
+    </fieldset>
+    <fieldset>
+      <legend>02 · Unde mergem?</legend>
+      <div class="place-grid">
+        <label><input type="radio" name="place" value="kfc" required><span><b>🍗</b>KFC</span></label>
+        <label><input type="radio" name="place" value="mcdonalds"><span><b>🍔</b>McDonald's</span></label>
+        <label><input type="radio" name="place" value="restaurant"><span><b>🍽</b>Restaurant</span></label>
+        <label><input type="radio" name="place" value="cinema"><span><b>🎬</b>Cinema</span></label>
+        <label class="improvise"><input type="radio" name="place" value="improvizam"><span><b>✧</b>Vom improviza</span></label>
+      </div>
+    </fieldset>
+    <label class="invite-note"><span>Un gând pentru mine <small>(opțional)</small></span><textarea name="message" maxlength="500" rows="3" placeholder="Abia aștept să…"></textarea></label>
+    <button class="invite-submit" type="submit">Da, vreau întâlnirea <span>♡</span></button>
+    <p class="invite-status" role="status" aria-live="polite"></p>
+    <p class="invite-file-note">La trimitere se descarcă un fișier pentru Notepad cu toate alegerile.</p>
+  </form>
 </section>
 <div class="hero-footer"><span>ȘASE LUNI DE NOI</span><span>ȘI TOT CE URMEAZĂ ♡</span></div>
 </main>

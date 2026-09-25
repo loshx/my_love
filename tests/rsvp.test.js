@@ -32,3 +32,23 @@ test('reports delivery truthfully and sends configured labels', async () => {
     if (chat === undefined) delete process.env.TELEGRAM_CHAT_ID; else process.env.TELEGRAM_CHAT_ID = chat;
   }
 });
+
+test('accepts the custom invitation date, time and place', async () => {
+  const token = process.env.TELEGRAM_BOT_TOKEN, chat = process.env.TELEGRAM_CHAT_ID, originalFetch = globalThis.fetch;
+  const invitation = { date: '2026-10-03', time: '19:30', place: 'cinema', message: 'Abia aștept!' };
+  try {
+    process.env.TELEGRAM_BOT_TOKEN = 'test-token'; process.env.TELEGRAM_CHAT_ID = 'test-chat';
+    globalThis.fetch = async (_url, options) => {
+      const payload = JSON.parse(options.body);
+      assert.match(payload.text, /2026-10-03, ora 19:30/);
+      assert.match(payload.text, /Cinema/);
+      return { ok: true, json: async () => ({ ok: true }) };
+    };
+    assert.equal((await request(invitation)).code, 200);
+    assert.equal((await request({ ...invitation, time: '25:00' })).code, 400);
+  } finally {
+    globalThis.fetch = originalFetch;
+    if (token === undefined) delete process.env.TELEGRAM_BOT_TOKEN; else process.env.TELEGRAM_BOT_TOKEN = token;
+    if (chat === undefined) delete process.env.TELEGRAM_CHAT_ID; else process.env.TELEGRAM_CHAT_ID = chat;
+  }
+});
