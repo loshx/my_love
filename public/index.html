@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="cosmos.css?v=2"><link rel="stylesheet" href="welcome.css?v=5"><link rel="stylesheet" href="welcome-motion.css?v=1"><link rel="stylesheet" href="memory.css?v=7">
 <link rel="stylesheet" href="lightbox.css?v=2">
 <link rel="stylesheet" href="spring.css?v=1">
+<link rel="stylesheet" href="floating-gallery.css?v=1">
+<script defer src="floating-gallery.js?v=1"></script>
 <script defer src="lightbox.js?v=2"></script>
 <script type="module" src="cosmos.js?v=2"></script><script defer src="app.js?v=15"></script>
 </head>
@@ -63,6 +65,14 @@
   </figure>
   </div>
 </section>
+<section class="floating-gallery" aria-labelledby="gallery-title">
+  <header class="gallery-heading">
+    <p>17 CLIPE · O SINGURĂ POVESTE</p>
+    <h2 id="gallery-title">Noi, prin toate<br><em>momentele noastre.</em></h2>
+    <span>Atinge o fotografie. Fiecare păstrează ceva ce vreau să-ți spun.</span>
+  </header>
+  <div class="gallery-sky" id="gallery-sky"></div>
+</section>
 <div class="hero-footer"><span>ȘASE LUNI DE NOI</span><span>ȘI TOT CE URMEAZĂ ♡</span></div>
 </main>
 <dialog class="memory-lightbox" aria-label="Primele noastre mesaje, imagine mărită">
@@ -72,6 +82,15 @@
     <img class="lightbox-image" src="images/2.png" width="1179" height="2556" alt="Primele noastre mesaje din 13 martie, începând cu felicitarea întârziată">
     <figcaption>de aici a început totul. ♡</figcaption>
   </figure>
+</dialog>
+<dialog class="gallery-lightbox" aria-labelledby="gallery-message">
+  <button class="gallery-close" type="button" aria-label="Închide fotografia">✕</button>
+  <button class="gallery-nav gallery-prev" type="button" aria-label="Fotografia anterioară">←</button>
+  <figure>
+    <img class="gallery-large-image" src="images/noi1.jpg" alt="O amintire cu noi">
+    <figcaption id="gallery-message">Te iubesc.</figcaption>
+  </figure>
+  <button class="gallery-nav gallery-next" type="button" aria-label="Fotografia următoare">→</button>
 </dialog>
 </body>
 </html>
