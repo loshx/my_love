@@ -38,11 +38,3 @@ h1 em { color: var(--wine); font-weight: 400; }
   .cat { scale: 1.1; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; } }
-
-.hero-eye{position:absolute;z-index:3;width:clamp(125px,14vw,185px);height:auto;margin:0;padding:6px 6px 22px;background:#f2e8dc;box-shadow:0 18px 45px #000b;animation:eye-float 7s ease-in-out infinite}
-.hero-eye img{display:block;width:100%;height:auto;filter:grayscale(1) contrast(1.08)}
-.hero-eye figcaption{position:absolute;left:0;right:0;bottom:4px;text-align:center;color:#765d67;font:italic 10px 'Playfair Display',Georgia,serif;letter-spacing:.5px}
-.hero-eye-mine{left:-46px;top:48%;width:clamp(105px,10vw,145px);rotate:-8deg}
-.hero-eye-hers{right:-42px;top:9%;width:clamp(145px,16vw,215px);rotate:8deg;animation-delay:-3.5s}
-@keyframes eye-float{0%,100%{translate:0 0}50%{translate:0 -13px}}
-@media(max-width:760px){.hero-eye{padding:4px 4px 16px}.hero-eye figcaption{font-size:8px;bottom:2px}.hero-eye-mine{left:-17px;top:46%;width:72px}.hero-eye-hers{right:-17px;top:44%;width:108px}}
