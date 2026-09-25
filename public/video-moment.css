@@ -1,0 +1,16 @@
+.video-moment{position:relative;width:100vw;min-height:105svh;margin-left:calc(50% - 50vw);display:grid;place-items:center;padding:100px 30px;border-top:1px solid var(--line);overflow:hidden;isolation:isolate}
+.video-moment::before{content:'';position:absolute;inset:8%;background:radial-gradient(circle at center,#e56f9b1c,transparent 60%);pointer-events:none}
+.love-video-frame{position:relative;z-index:2;width:min(72vw,520px);padding:13px 13px 0;background:#f2e8dc;box-shadow:0 35px 90px #000c,5px 6px 0 #bfaeb5;rotate:-2deg;opacity:0;transform:translateY(120px) rotate(-12deg) scale(1.32);filter:blur(7px);transition:opacity .85s ease,transform 1.15s cubic-bezier(.18,.8,.2,1),filter .9s ease}
+.video-moment.video-visible .love-video-frame{opacity:1;transform:translateY(0) rotate(0) scale(1);filter:blur(0)}
+.love-video-frame video{display:block;width:100%;max-height:75svh;background:#08070b;object-fit:contain}
+.video-tape{position:absolute;z-index:3;top:-17px;left:50%;width:105px;height:32px;translate:-50% 0;rotate:-7deg;background:#d9b9cabb;border:1px solid #fff6}
+.video-frame-hearts{padding:17px 8px 20px;text-align:center;color:#c74a72;font:22px Georgia,serif;letter-spacing:12px}
+.video-stickers{position:absolute;inset:0;z-index:3;pointer-events:none}
+.video-sticker{position:absolute;width:clamp(160px,20vw,290px);height:clamp(160px,20vw,290px);object-fit:contain;opacity:0;filter:drop-shadow(0 20px 28px #000b);transition:opacity .7s ease,transform 1s cubic-bezier(.18,.8,.2,1);animation:video-sticker-float 8s ease-in-out infinite}
+.video-cat-heart{left:2%;top:9%;transform:translate(-80px,-50px) rotate(-20deg) scale(.45)}
+.video-cat-mariage{right:0;top:31%;transform:translate(90px,30px) rotate(22deg) scale(.45);animation-delay:-3s}
+.video-cat-sus{left:5%;bottom:2%;transform:translate(-70px,80px) rotate(-18deg) scale(.45);animation-delay:-5s}
+.video-visible .video-sticker{opacity:1;transform:translate(0,0) rotate(0) scale(1)}
+@keyframes video-sticker-float{0%,100%{translate:0 0;rotate:-4deg}50%{translate:0 -18px;rotate:5deg}}
+@media(max-width:760px){.video-moment{min-height:92svh;padding:90px 14px}.love-video-frame{width:min(76vw,390px);padding:8px 8px 0}.video-frame-hearts{padding:12px 5px 15px;font-size:17px}.video-sticker{width:125px;height:125px}.video-cat-heart{left:-28px;top:5%}.video-cat-mariage{right:-28px;top:37%}.video-cat-sus{left:-23px;bottom:1%}}
+@media(prefers-reduced-motion:reduce){.love-video-frame,.video-sticker{opacity:1;transform:none;filter:none;transition:none;animation:none}}
