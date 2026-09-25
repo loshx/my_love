@@ -1,0 +1,7 @@
+{
+  "name": "sase-luni-cu-tine",
+  "private": true,
+  "type": "module",
+  "scripts": { "dev": "node server.mjs", "test": "node --test" },
+  "engines": { "node": ">=22" }
+}

@@ -1,0 +1,22 @@
+/* Keep the photo tilt and slideshow transforms independent of scroll motion. */
+.scroll-reveal {
+  opacity: 0;
+  translate: 0 48px;
+  transition: opacity 850ms ease, translate 1000ms cubic-bezier(.2,.7,.2,1), rotate 1100ms cubic-bezier(.2,.7,.2,1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.photo-frame.scroll-reveal { translate: -24px 60px; rotate: -5deg; }
+.memory-copy.scroll-reveal { translate: 25px 40px; }
+.letter-heart.scroll-reveal { translate: 0 25px; rotate: -20deg; }
+.signature.scroll-reveal { display: inline-block; }
+.option.scroll-reveal { translate: 0 25px; }
+.scroll-reveal.is-revealed { opacity: 1; translate: 0 0; rotate: 0deg; }
+.memory-copy.scroll-reveal:not(.is-revealed) { animation: none; }
+@media (max-width: 700px) {
+  .photo-frame.scroll-reveal { translate: 0 45px; }
+  .memory-copy.scroll-reveal { translate: 0 35px; }
+  .scroll-reveal.is-revealed { translate: 0 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal { opacity: 1; translate: none; rotate: none; transition: none; }
+}

@@ -1,0 +1,38 @@
+.scroll-memory { isolation: isolate; }
+.memory-photo-wrap { position: relative; z-index: 1; }
+.spring-field { position: absolute; inset: 0 -30px; z-index: 0; overflow: hidden; pointer-events: none; }
+.spring-haze { position: absolute; bottom: 35px; left: 0; width: 100%; height: 430px; background: radial-gradient(ellipse at 30% 80%, #82a96718, transparent 60%), radial-gradient(ellipse at 80% 60%, #d48baf14, transparent 60%); }
+.spring-flower { position: absolute; height: auto; mix-blend-mode: screen; transform-origin: 50% 95%; animation: spring-sway 8s ease-in-out infinite; mask-image: linear-gradient(#000 80%, transparent 100%); }
+.flower-pink { width: 260px; left: 0; bottom: 98px; --lean: -9deg; }
+.flower-red { width: 190px; left: 23%; bottom: 85px; --lean: 7deg; animation-delay: -3s; }
+.flower-lily { width: 220px; right: -20px; bottom: 92px; --lean: 12deg; animation-delay: -5s; }
+.flower-pink-small { width: 140px; left: 42%; bottom: 60px; --lean: -15deg; animation-delay: -1s; }
+.spring-grass { position: absolute; bottom: -20px; width: 45%; height: 240px; object-fit: fill; mix-blend-mode: screen; filter: invert(1) hue-rotate(180deg) saturate(.8) brightness(.8); mask-image: linear-gradient(transparent 5%, #000 35%, #000 68%, transparent 94%); opacity: .8; }
+.grass-left { left: -4%; rotate: -3deg; }
+.grass-center { left: 29%; bottom: -35px; }
+.grass-right { right: -8%; rotate: 4deg; }
+.spring-cat { position: absolute; left: 28%; bottom: 148px; width: 225px; z-index: 3; pointer-events: none; rotate: -9deg; animation: spring-cat-wiggle 7s ease-in-out infinite; }
+.spring-cat img { display: block; width: 100%; height: auto; clip-path: polygon(9% 45%, 12% 25%, 16% 16%, 23% 14%, 34% 24%, 52% 19%, 60% 9%, 67% 10%, 76% 27%, 83% 38%, 92% 46%, 91% 51%, 84% 54%, 89% 72%, 84% 82%, 73% 87%, 24% 91%, 13% 86%, 9% 69%); }
+.spring-cat > span { position: absolute; top: 5%; right: 0; color: var(--wine); font-size: 31px; text-shadow: 0 0 20px #e8a7c488; }
+.spring-firefly { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #f8e3ad; box-shadow: 0 0 10px 3px #f8e3ad50; animation: spring-firefly 6s ease-in-out infinite; }
+.firefly-one { left: 17%; bottom: 440px; }
+.firefly-two { left: 39%; bottom: 360px; animation-delay: -2s; }
+.firefly-three { right: 5%; bottom: 410px; animation-delay: -4s; }
+@keyframes spring-sway { 0%,100% { transform: rotate(var(--lean)); } 50% { transform: rotate(calc(var(--lean) + 3deg)); } }
+@keyframes spring-cat-wiggle { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-7px) rotate(2deg); } }
+@keyframes spring-firefly { 0%,100% { opacity: .2; translate: 0 0; } 50% { opacity: .9; translate: 8px -18px; } }
+@media (max-width: 760px) {
+  .scroll-memory { padding-bottom: 205px; }
+  .spring-field { inset-inline: -20px; }
+  .spring-cat { width: 145px; left: -18px; bottom: 145px; }
+  .flower-pink { width: 140px; left: -20px; bottom: 35px; }
+  .flower-red { width: 110px; left: 30%; bottom: 18px; }
+  .flower-lily { width: 140px; right: -15px; bottom: 30px; }
+  .flower-pink-small { display: none; }
+  .spring-grass { height: 160px; width: 65%; bottom: -28px; }
+  .grass-center { left: 22%; bottom: -38px; }
+  .firefly-one { bottom: 230px; }
+  .firefly-two { bottom: 140px; }
+  .firefly-three { bottom: 220px; }
+}
+@media (prefers-reduced-motion: reduce) { .spring-flower, .spring-cat, .spring-firefly { animation: none; } }
