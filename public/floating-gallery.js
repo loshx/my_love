@@ -23,6 +23,9 @@
     'Și povestea noastră abia începe. ♡'
   ];
   const tilts = [-7, 5, -3, 8, -5, 4, -8, 3, 7, -4, 5, -6, 3, -2, 8, -5, 4];
+  const sphere = document.createElement('div');
+  sphere.className = 'sphere-core';
+  gallery.append(sphere);
   const dialogImage = dialog.querySelector('.gallery-large-image');
   const dialogMessage = dialog.querySelector('#gallery-message');
   const close = dialog.querySelector('.gallery-close');
@@ -33,14 +36,29 @@
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'floating-photo';
-    button.style.setProperty('--tilt', `${tilts[index]}deg`);
-    button.style.setProperty('--float-time', `${6 + (index % 5) * 1.1}s`);
-    button.style.setProperty('--float-delay', `${-(index % 7) * .7}s`);
+    button.style.setProperty('--tilt', `${tilts[index] * .45}deg`);
     button.setAttribute('aria-label', `Deschide amintirea ${index + 1}: ${message}`);
     button.innerHTML = `<span class="gallery-tape"></span><img src="images/noi${index + 1}.jpg" alt="Amintirea noastră ${index + 1}" loading="lazy" decoding="async"><span class="photo-number">${String(index + 1).padStart(2, '0')}</span>`;
     button.addEventListener('click', () => openPhoto(index));
-    gallery.append(button);
+    sphere.append(button);
   });
+  function arrangeSphere() {
+    const radius = innerWidth <= 760 ? 155 : 285;
+    const total = messages.length;
+    sphere.querySelectorAll('.floating-photo').forEach((photo, index) => {
+      const y = 1 - (index / (total - 1)) * 2;
+      const ring = Math.sqrt(1 - y * y);
+      const angle = Math.PI * (3 - Math.sqrt(5)) * index;
+      const x = Math.cos(angle) * ring;
+      const z = Math.sin(angle) * ring;
+      photo.style.setProperty('--sphere-x', `${x * radius}px`);
+      photo.style.setProperty('--sphere-y', `${y * radius}px`);
+      photo.style.setProperty('--sphere-z', `${z * radius}px`);
+      photo.style.setProperty('--depth', String((z + 1) / 2));
+    });
+  }
+  arrangeSphere();
+  addEventListener('resize', arrangeSphere, { passive: true });
 
   function showPhoto(index) {
     current = (index + messages.length) % messages.length;
@@ -75,9 +93,9 @@
       entry.target.classList.add('gallery-visible');
       observer.unobserve(entry.target);
     }), { threshold: .08 });
-    gallery.querySelectorAll('.floating-photo').forEach((photo, index) => {
+    sphere.querySelectorAll('.floating-photo').forEach((photo, index) => {
       photo.style.setProperty('--reveal-delay', `${(index % 5) * 80}ms`);
       observer.observe(photo);
     });
-  } else gallery.querySelectorAll('.floating-photo').forEach(photo => photo.classList.add('gallery-visible'));
+  } else sphere.querySelectorAll('.floating-photo').forEach(photo => photo.classList.add('gallery-visible'));
 })();
