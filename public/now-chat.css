@@ -15,3 +15,8 @@
 @keyframes sticker-float{0%,100%{translate:0 0;rotate:-5deg}50%{translate:0 -14px;rotate:5deg}}
 @media(max-width:760px){.now-chat{padding-top:95px;padding-bottom:150px}.now-chat-reveal{transform-origin:50% 50%}.telegram-sticker{width:66px;height:66px}.sticker-1{left:2%;top:2%}.sticker-2{right:1%;top:4%}.sticker-3{left:2%;bottom:4%}.sticker-4{right:1%;bottom:3%}.sticker-5{left:19%;bottom:0}.sticker-6{left:23%;top:1%}.sticker-7{right:22%;top:1%}.sticker-8{right:20%;bottom:0}}
 @media(prefers-reduced-motion:reduce){.now-chat-reveal{opacity:1;transform:none;transition:none}.telegram-sticker{opacity:1;scale:1;animation:none}}
+
+/* Large stickers woven into the chat composition. */
+.telegram-sticker{width:clamp(115px,12vw,175px);height:clamp(115px,12vw,175px);filter:drop-shadow(0 18px 24px #000c)}
+.sticker-1{left:31%;top:17%;rotate:-8deg}.sticker-2{right:-2%;top:15%;rotate:7deg}.sticker-3{left:34%;bottom:9%;rotate:6deg}.sticker-4{right:-3%;bottom:11%;width:clamp(145px,15vw,210px);height:clamp(145px,15vw,210px)}.sticker-5{left:-4%;bottom:12%;rotate:-8deg}.sticker-6{left:-3%;top:18%;rotate:6deg}.sticker-7{right:25%;top:3%;rotate:-5deg}.sticker-8{right:25%;bottom:-5%;width:clamp(140px,15vw,205px);height:clamp(140px,15vw,205px)}
+@media(max-width:760px){.now-chat{padding-top:125px;padding-bottom:190px}.telegram-sticker{width:92px;height:92px}.sticker-1{left:-7%;top:19%}.sticker-2{right:-7%;top:17%}.sticker-3{left:-8%;bottom:13%}.sticker-4{right:-9%;bottom:16%;width:122px;height:122px}.sticker-5{left:8%;bottom:-1%}.sticker-6{left:9%;top:1%}.sticker-7{right:10%;top:1%}.sticker-8{right:8%;bottom:-3%;width:120px;height:120px}}
