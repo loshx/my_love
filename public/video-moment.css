@@ -1,5 +1,7 @@
 .video-moment{position:relative;width:100vw;min-height:105svh;margin-left:calc(50% - 50vw);display:grid;place-items:center;padding:100px 30px;border-top:1px solid var(--line);overflow:hidden;isolation:isolate}
 .video-moment::before{content:'';position:absolute;inset:8%;background:radial-gradient(circle at center,#e56f9b1c,transparent 60%);pointer-events:none}
+.handshake-moment::before{background:radial-gradient(circle at center,#b77cff18,transparent 62%)}
+.handshake-moment .love-video-frame{rotate:2deg}
 .love-video-frame{position:relative;z-index:2;width:min(72vw,520px);padding:13px 13px 0;border:1px solid #fff;background:#f5eee7;box-shadow:0 35px 95px #000d,5px 7px 0 #cbbdc1,0 0 45px #e6639b33;opacity:0;transform:translateY(120px) rotate(-12deg) scale(1.32);filter:blur(7px);transition:opacity .85s ease,transform 1.15s cubic-bezier(.18,.8,.2,1),filter .9s ease}
 .love-video-frame::before{content:'';position:absolute;inset:5px;border:1px solid #d8ccd055;pointer-events:none}
 .video-moment.video-visible .love-video-frame{opacity:1;transform:translateY(0) rotate(0) scale(1);filter:blur(0)}

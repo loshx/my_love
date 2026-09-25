@@ -4,7 +4,7 @@ import path from 'node:path';
 import handler from './api/rsvp.js';
 try { process.loadEnvFile(); } catch {}
 const root = path.resolve('public');
-const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp' };
+const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.mp4': 'video/mp4', '.mov': 'video/quicktime' };
 http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url, 'http://localhost');
