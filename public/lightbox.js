@@ -1,13 +1,16 @@
 function initMemoryLightbox() {
-  const trigger = document.querySelector('.memory-image-link');
+  const triggers = document.querySelectorAll('.memory-image-link');
   const dialog = document.querySelector('.memory-lightbox');
-  if (!trigger || !dialog || typeof dialog.showModal !== 'function') return;
+  if (!triggers.length || !dialog || typeof dialog.showModal !== 'function') return;
   const layer = dialog.querySelector('.lightbox-hearts');
   const close = dialog.querySelector('.lightbox-close');
+  const dialogImage = dialog.querySelector('.lightbox-image');
+  const dialogCaption = dialog.querySelector('figcaption');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   let floatingTimer;
   let savedOverflow;
   const animations = new Set();
+  let activeTrigger = triggers[0];
 
   function heart(x, y, burst) {
     if (animations.size >= 130 || document.hidden) return;
@@ -41,9 +44,13 @@ function initMemoryLightbox() {
     animations.clear();
     layer.replaceChildren();
   }
-  trigger.addEventListener('click', event => {
+  triggers.forEach(trigger => trigger.addEventListener('click', event => {
     event.preventDefault();
     if (dialog.open) return;
+    activeTrigger = trigger;
+    dialogImage.src = trigger.dataset.fullImage || trigger.querySelector('img').src;
+    dialogImage.alt = trigger.querySelector('img').alt;
+    dialogCaption.textContent = trigger.dataset.caption || 'de aici a început totul. ♡';
     savedOverflow = document.documentElement.style.overflow;
     dialog.showModal();
     document.documentElement.style.overflow = 'hidden';
@@ -57,13 +64,13 @@ function initMemoryLightbox() {
       if (document.hidden) return;
       for (let i = 0; i < 3; i++) heart(Math.random() * innerWidth, innerHeight + 25, false);
     }, 650);
-  });
+  }));
   close.addEventListener('click', () => dialog.close());
   dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
   dialog.addEventListener('close', () => {
     stopHearts();
     document.documentElement.style.overflow = savedOverflow;
-    trigger.focus({ preventScroll: true });
+    activeTrigger.focus({ preventScroll: true });
   });
   reduced.addEventListener('change', event => { if (event.matches) stopHearts(); });
 }
