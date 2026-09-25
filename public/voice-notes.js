@@ -14,7 +14,8 @@
   tracks.forEach((track, index) => {
     const card = document.createElement('article');
     card.className = `voice-card${track.file ? '' : ' voice-missing'}`;
-    card.innerHTML = `<span class="voice-number">${String(index + 1).padStart(2, '0')}</span><button class="voice-play" type="button" ${track.file ? '' : 'disabled'} aria-label="${track.file ? `Redă ${track.title}` : 'Înregistrarea 5 lipsește'}"><span>${track.file ? '▶' : '·'}</span></button><div class="voice-info"><h3>${track.title}</h3><p>${track.note}</p><input class="voice-progress" type="range" min="0" max="100" value="0" step="0.1" ${track.file ? '' : 'disabled'} aria-label="Poziția redării"></div><time class="voice-time">${track.file ? '0:00' : 'lipsește'}</time><span class="voice-card-heart" aria-hidden="true">♥</span>`;
+    const bars = Array.from({ length: 38 }, (_, bar) => `<i style="--bar:${8 + ((bar * 17 + index * 11) % 31)}px"></i>`).join('');
+    card.innerHTML = `<span class="voice-number">${String(index + 1).padStart(2, '0')}</span><div class="voice-bubble"><button class="voice-play" type="button" ${track.file ? '' : 'disabled'} aria-label="${track.file ? `Redă ${track.title}` : 'Înregistrarea 5 lipsește'}"><span>${track.file ? '▶' : '·'}</span></button><div class="voice-info"><h3>${track.title}</h3><p>${track.note}</p><div class="voice-wave-wrap"><div class="voice-bars" aria-hidden="true">${bars}</div><input class="voice-progress" type="range" min="0" max="100" value="0" step="0.1" ${track.file ? '' : 'disabled'} aria-label="Poziția redării"></div></div><time class="voice-time">${track.file ? '0:00' : 'lipsește'}</time><span class="voice-card-heart" aria-hidden="true">♥</span></div>`;
     list.append(card);
     if (!track.file) return;
     const audio = new Audio(`images/${track.file}`);
@@ -23,10 +24,13 @@
     const icon = play.querySelector('span');
     const progress = card.querySelector('.voice-progress');
     const time = card.querySelector('.voice-time');
+    const barElements = [...card.querySelectorAll('.voice-bars i')];
     players.push({ audio, card, icon });
     audio.addEventListener('loadedmetadata', () => { time.textContent = format(audio.duration); });
     audio.addEventListener('timeupdate', () => {
       progress.value = audio.duration ? String(audio.currentTime / audio.duration * 100) : '0';
+      const played = audio.duration ? audio.currentTime / audio.duration : 0;
+      barElements.forEach((bar, index) => bar.classList.toggle('played', index / barElements.length <= played));
       time.textContent = `${format(audio.currentTime)} / ${format(audio.duration)}`;
     });
     audio.addEventListener('play', () => { card.classList.add('is-playing'); icon.textContent = 'Ⅱ'; });
@@ -40,9 +44,7 @@
   });
   if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const observer = new IntersectionObserver(entries => entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('voice-visible');
-      observer.unobserve(entry.target);
+      entry.target.classList.toggle('voice-visible', entry.isIntersecting);
     }), { threshold: .1 });
     list.querySelectorAll('.voice-card').forEach((card, index) => { card.style.setProperty('--voice-delay', `${index * 90}ms`); observer.observe(card); });
   } else list.querySelectorAll('.voice-card').forEach(card => card.classList.add('voice-visible'));
