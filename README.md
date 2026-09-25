@@ -1,4 +1,4 @@
-# 6 luni. Noi doi. ♡
+# 5 luni. Noi doi. ♡
 
 Site în română, adaptat pentru telefon și PC, cu album navigabil (butoane, swipe, taste săgeți și redare automată opțională), scrisoare și invitație. HTML, CSS și JavaScript, fără dependențe de instalat.
 

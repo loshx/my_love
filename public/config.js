@@ -3,7 +3,7 @@
 export const config = {
   name: 'iubirea mea',
   signature: 'Cu toată dragostea, al tău',
-  letter: 'Șase luni de când „eu” și „tu” au început să însemne „noi”. Îți mulțumesc pentru fiecare zâmbet, fiecare îmbrățișare și pentru felul în care faci zilele obișnuite să fie speciale. Dacă ar fi să o iau de la capăt, tot pe tine te-aș alege.',
+  letter: 'Cinci luni de când „eu” și „tu” au început să însemne „noi”. Îți mulțumesc pentru fiecare zâmbet, fiecare îmbrățișare și pentru felul în care faci zilele obișnuite să fie speciale. Dacă ar fi să o iau de la capăt, tot pe tine te-aș alege.',
   memories: [
     { image: '', title: 'De aici a început totul.', caption: 'Un început mic. Un sentiment mare.', tag: 'PRIMUL NOSTRU CAPITOL', art: 'sunset' },
     { image: '', title: 'Locul meu preferat? Lângă tine.', caption: 'Plimbările fără grabă și conversațiile care nu se mai termină.', tag: 'MOMENTELE NOASTRE', art: 'moon' },
