@@ -35,13 +35,13 @@ test('reports delivery truthfully and sends configured labels', async () => {
 
 test('accepts the custom invitation date and place', async () => {
   const token = process.env.TELEGRAM_BOT_TOKEN, chat = process.env.TELEGRAM_CHAT_ID, originalFetch = globalThis.fetch;
-  const invitation = { date: '2026-10-03', place: 'cinema', message: 'Abia aștept!' };
+  const invitation = { date: '2026-10-03', place: 'kebab', message: 'Abia aștept!' };
   try {
     process.env.TELEGRAM_BOT_TOKEN = 'test-token'; process.env.TELEGRAM_CHAT_ID = 'test-chat';
     globalThis.fetch = async (_url, options) => {
       const payload = JSON.parse(options.body);
       assert.match(payload.text, /2026-10-03/);
-      assert.match(payload.text, /Cinema/);
+      assert.match(payload.text, /Kebab/);
       return { ok: true, json: async () => ({ ok: true }) };
     };
     assert.equal((await request(invitation)).code, 200);

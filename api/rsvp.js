@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   let body;
   try { body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body; } catch { return res.status(400).json({ error: 'Răspuns invalid.' }); }
   const { date, place, message = '' } = body || {};
-  const invitePlaces = { kfc: 'KFC', mcdonalds: "McDonald’s", restaurant: 'Restaurant', cinema: 'Cinema', improvizam: 'Vom improviza' };
+  const invitePlaces = { kfc: 'KFC', mcdonalds: "McDonald’s", restaurant: 'Restaurant', kebab: 'Kebab', cinema: 'Cinema', improvizam: 'Vom improviza' };
   const configuredDate = config.dates.find(item => item.id === date);
   const configuredPlace = config.places.find(item => item.id === place);
   const customDate = typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date) && !Number.isNaN(Date.parse(`${date}T12:00:00Z`));

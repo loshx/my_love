@@ -4,9 +4,8 @@
   const dateInput = form.querySelector('#invite-date');
   const status = form.querySelector('.invite-status');
   const button = form.querySelector('.invite-submit');
-  const places = { kfc: 'KFC', mcdonalds: "McDonald's", restaurant: 'Restaurant', cinema: 'Cinema', improvizam: 'Vom improviza' };
+  const places = { kfc: 'KFC', mcdonalds: "McDonald's", restaurant: 'Restaurant', kebab: 'Kebab', cinema: 'Cinema', improvizam: 'Vom improviza' };
   const dateScroll = form.querySelector('#date-scroll');
-  const dayNames = ['Dum', 'Lun', 'Mar', 'Mie', 'Joi', 'Vin', 'Sâm'];
   const monthNames = ['ian', 'feb', 'mar', 'apr', 'mai', 'iun', 'iul', 'aug', 'sept', 'oct', 'nov', 'dec'];
   const availableDates = [
     new Date(2026, 8, 28, 12), new Date(2026, 8, 29, 12), new Date(2026, 8, 30, 12),
@@ -20,7 +19,7 @@
     choice.dataset.date = value;
     choice.setAttribute('role', 'radio');
     choice.setAttribute('aria-checked', 'false');
-    choice.innerHTML = `<small>${dayNames[day.getDay()]}</small><strong>${day.getDate()}</strong><span>${monthNames[day.getMonth()]}</span>`;
+    choice.innerHTML = `<strong>${day.getDate()}</strong><span>${monthNames[day.getMonth()]}</span>`;
     choice.addEventListener('click', () => {
       dateScroll.querySelectorAll('.date-choice').forEach(item => { item.classList.remove('selected'); item.setAttribute('aria-checked', 'false'); });
       choice.classList.add('selected');
