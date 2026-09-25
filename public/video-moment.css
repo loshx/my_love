@@ -13,7 +13,10 @@
 .video-cat-heart{left:2%;top:9%;transform:translate(-80px,-50px) rotate(-20deg) scale(.45)}
 .video-cat-mariage{right:0;top:31%;transform:translate(90px,30px) rotate(22deg) scale(.45);animation-delay:-3s}
 .video-cat-sus{left:5%;bottom:2%;transform:translate(-70px,80px) rotate(-18deg) scale(.45);animation-delay:-5s}
+.video-cats-kissing{left:1%;top:13%;transform:translate(-90px,-45px) rotate(-18deg) scale(.4);animation-delay:-2s}
+.video-cat-flowers{right:1%;top:34%;transform:translate(90px,20px) rotate(20deg) scale(.4);animation-delay:-5s}
+.video-cat-close{left:5%;bottom:1%;transform:translate(-65px,85px) rotate(-15deg) scale(.4);animation-delay:-7s}
 .video-visible .video-sticker{opacity:1;transform:translate(0,0) rotate(0) scale(1)}
 @keyframes video-sticker-float{0%,100%{translate:0 0;rotate:-4deg}50%{translate:0 -18px;rotate:5deg}}
-@media(max-width:760px){.video-moment{min-height:92svh;padding:90px 14px}.love-video-frame{width:min(82vw,390px);padding:8px 8px 0}.video-frame-hearts{padding:17px 3px 20px;font-size:16px}.video-sticker{width:125px;height:125px}.video-cat-heart{left:-28px;top:5%}.video-cat-mariage{right:-28px;top:37%}.video-cat-sus{left:-23px;bottom:1%}}
+@media(max-width:760px){.video-moment{min-height:92svh;padding:90px 14px}.love-video-frame{width:min(82vw,390px);padding:8px 8px 0}.video-frame-hearts{padding:17px 3px 20px;font-size:16px}.video-sticker{width:125px;height:125px}.video-cat-heart,.video-cats-kissing{left:-28px;top:5%}.video-cat-mariage,.video-cat-flowers{right:-28px;top:37%}.video-cat-sus,.video-cat-close{left:-23px;bottom:1%}}
 @media(prefers-reduced-motion:reduce){.love-video-frame,.video-sticker{opacity:1;transform:none;filter:none;transition:none;animation:none}}
