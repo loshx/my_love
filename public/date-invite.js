@@ -5,14 +5,35 @@
   const status = form.querySelector('.invite-status');
   const button = form.querySelector('.invite-submit');
   const places = { kfc: 'KFC', mcdonalds: "McDonald's", restaurant: 'Restaurant', cinema: 'Cinema', improvizam: 'Vom improviza' };
-  const today = new Date();
-  const localToday = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
-  dateInput.min = localToday;
+  const dateScroll = form.querySelector('#date-scroll');
+  const dayNames = ['Dum', 'Lun', 'Mar', 'Mie', 'Joi', 'Vin', 'Sâm'];
+  const monthNames = ['ian', 'feb', 'mar', 'apr', 'mai', 'iun', 'iul', 'aug', 'sept', 'oct', 'nov', 'dec'];
+  const start = new Date();
+  start.setHours(12, 0, 0, 0);
+  for (let offset = 0; offset < 21; offset += 1) {
+    const day = new Date(start);
+    day.setDate(start.getDate() + offset);
+    const value = `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, '0')}-${String(day.getDate()).padStart(2, '0')}`;
+    const choice = document.createElement('button');
+    choice.type = 'button';
+    choice.className = 'date-choice';
+    choice.dataset.date = value;
+    choice.setAttribute('role', 'radio');
+    choice.setAttribute('aria-checked', 'false');
+    choice.innerHTML = `<small>${offset === 0 ? 'Azi' : dayNames[day.getDay()]}</small><strong>${day.getDate()}</strong><span>${monthNames[day.getMonth()]}</span>`;
+    choice.addEventListener('click', () => {
+      dateScroll.querySelectorAll('.date-choice').forEach(item => { item.classList.remove('selected'); item.setAttribute('aria-checked', 'false'); });
+      choice.classList.add('selected');
+      choice.setAttribute('aria-checked', 'true');
+      dateInput.value = value;
+    });
+    dateScroll.append(choice);
+  }
 
   function makeNotepad(data) {
     const date = new Date(`${data.date}T12:00:00`);
     const prettyDate = new Intl.DateTimeFormat('ro-RO', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(date);
-    const content = `ÎNTÂLNIREA NOASTRĂ ♡\r\n\r\nZiua: ${prettyDate}\r\nOra: ${data.time}\r\nLocul: ${places[data.place]}\r\nMesaj: ${data.message.trim() || 'Fără mesaj, doar un mare DA. ♡'}\r\n\r\nAbia aștept să ne vedem!`;
+    const content = `ÎNTÂLNIREA NOASTRĂ ♡\r\n\r\nZiua: ${prettyDate}\r\nLocul: ${places[data.place]}\r\nMesaj: ${data.message.trim() || 'Fără mesaj, doar un mare DA. ♡'}\r\n\r\nAbia aștept să ne vedem!`;
     const blob = new Blob(['\ufeff', content], { type: 'text/plain;charset=utf-8' });
     const link = document.createElement('a');
     const fileUrl = URL.createObjectURL(blob);
@@ -26,6 +47,11 @@
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
+    if (!dateInput.value) {
+      status.textContent = 'Alege mai întâi o zi pentru întâlnirea noastră. ♥';
+      dateScroll.focus();
+      return;
+    }
     if (!form.reportValidity()) return;
     const data = Object.fromEntries(new FormData(form));
     makeNotepad(data);
