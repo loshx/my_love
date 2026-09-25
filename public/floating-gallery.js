@@ -43,7 +43,7 @@
     sphere.append(button);
   });
   function arrangeSphere() {
-    const radius = innerWidth <= 760 ? 155 : 285;
+    const radius = innerWidth <= 760 ? 185 : 335;
     const total = messages.length;
     sphere.querySelectorAll('.floating-photo').forEach((photo, index) => {
       const y = 1 - (index / (total - 1)) * 2;
