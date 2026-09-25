@@ -3,7 +3,7 @@
 html { min-height: 100%; }
 body { margin: 0; color: var(--ink); font-family: 'DM Sans', sans-serif; }
 .welcome { min-height: 100svh; max-width: 1320px; margin: auto; padding: 40px 64px 26px; display: flex; flex-direction: column; }
-.hero { flex: 1; display: grid; grid-template-columns: 1.3fr 1fr; align-items: center; gap: 12px; padding: 38px 0; }
+.hero { position: relative; flex: 1; display: grid; grid-template-columns: 1.3fr 1fr; align-items: center; gap: 12px; padding: 38px 0; }
 .hero-copy { position: relative; z-index: 1; }
 .eyebrow { color: var(--wine); font-size: 10px; font-weight: 600; letter-spacing: 2.4px; margin: 0 0 28px; animation: welcome-in 1s both; }
 .eyebrow::before { content: ''; display: inline-block; width: 5px; height: 5px; background: var(--wine); border-radius: 50%; margin: 0 10px 2px 0; box-shadow: 0 0 12px #e8a7c477; }
@@ -38,3 +38,11 @@ h1 em { color: var(--wine); font-weight: 400; }
   .cat { scale: 1.1; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; } }
+
+.hero-eye{position:absolute;z-index:3;width:clamp(125px,14vw,185px);height:clamp(78px,8.6vw,112px);margin:0;padding:6px 6px 22px;background:#f2e8dc;box-shadow:0 18px 45px #000b;border-radius:50% 48% 52% 46%;animation:eye-float 7s ease-in-out infinite;overflow:hidden}
+.hero-eye img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%;filter:saturate(.9) contrast(1.05)}
+.hero-eye figcaption{position:absolute;left:0;right:0;bottom:4px;text-align:center;color:#765d67;font:italic 10px 'Playfair Display',Georgia,serif;letter-spacing:.5px}
+.hero-eye-mine{left:-46px;top:58%;rotate:-8deg}.hero-eye-mine img{object-position:55% 59%;transform:scale(1.65)}
+.hero-eye-hers{right:-42px;top:9%;rotate:8deg;animation-delay:-3.5s}.hero-eye-hers img{object-position:50% 48%;transform:scale(1.12)}
+@keyframes eye-float{0%,100%{translate:0 0}50%{translate:0 -13px}}
+@media(max-width:760px){.hero-eye{width:92px;height:62px;padding:4px 4px 16px}.hero-eye figcaption{font-size:8px;bottom:2px}.hero-eye-mine{left:-17px;top:48%}.hero-eye-hers{right:-17px;top:45%}}
