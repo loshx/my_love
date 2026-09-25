@@ -29,21 +29,6 @@
     dateScroll.append(choice);
   });
 
-  function makeNotepad(data) {
-    const date = new Date(`${data.date}T12:00:00`);
-    const prettyDate = new Intl.DateTimeFormat('ro-RO', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(date);
-    const content = `ÎNTÂLNIREA NOASTRĂ ♡\r\n\r\nZiua: ${prettyDate}\r\nLocul: ${places[data.place]}\r\nMesaj: ${data.message.trim() || 'Fără mesaj, doar un mare DA. ♡'}\r\n\r\nAbia aștept să ne vedem!`;
-    const blob = new Blob(['\ufeff', content], { type: 'text/plain;charset=utf-8' });
-    const link = document.createElement('a');
-    const fileUrl = URL.createObjectURL(blob);
-    link.href = fileUrl;
-    link.download = `intalnirea-noastra-${data.date}.txt`;
-    document.body.append(link);
-    link.click();
-    link.remove();
-    setTimeout(() => URL.revokeObjectURL(fileUrl), 1000);
-  }
-
   form.addEventListener('submit', async event => {
     event.preventDefault();
     if (!dateInput.value) {
@@ -53,17 +38,16 @@
     }
     if (!form.reportValidity()) return;
     const data = Object.fromEntries(new FormData(form));
-    makeNotepad(data);
     button.disabled = true;
-    status.textContent = 'Fișierul pentru Notepad a fost creat. Trimit și răspunsul…';
+    status.textContent = 'Păstrez răspunsul tău…';
     try {
       const response = await fetch('/api/rsvp', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data), signal: AbortSignal.timeout(15000) });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || 'Răspunsul nu a putut fi trimis.');
-      status.textContent = 'E o întâlnire! Alegerea ta a ajuns la mine. ♡';
+      status.textContent = 'E o întâlnire! Alegerea ta a fost păstrată pentru mine. ♥';
       form.classList.add('invite-sent');
     } catch (error) {
-      status.textContent = `Fișierul a fost creat, dar trimiterea nu este configurată încă: ${error.message}`;
+      status.textContent = `Răspunsul nu a putut fi păstrat: ${error.message}`;
     } finally { button.disabled = false; }
   });
 

@@ -10,9 +10,15 @@ Editează `public/config.js`: numele, scrisoarea, semnătura, amintirile, datele
 
 Instalează Node.js 22 sau mai nou. Rulează `npm run dev` în acest director și deschide http://localhost:3000. Nu deschide HTML-ul prin dublu clic, deoarece folosește module JavaScript. Pentru livrare locală, copiază `.env.example` în `.env` și completează variabilele. `npm test` verifică endpoint-ul fără mesaje reale.
 
-## Răspunsul pe PC prin Telegram
+## Răspunsurile salvate în `raspunsuri.txt`
 
-Implementarea folosește Telegram: primești notificarea în contul tău, inclusiv în aplicația de pe PC. Răspunsurile nu se salvează pe discul efemer Vercel.
+Formularul adaugă fiecare alegere într-un fișier privat persistent din Vercel Blob. În proiectul Vercel, deschide **Storage**, creează un **Blob Store privat** și conectează-l proiectului. Vercel adaugă automat variabila `BLOB_READ_WRITE_TOKEN`. După următorul deploy, fișierul `raspunsuri.txt` apare în acel Blob Store după prima trimitere și poate fi deschis sau descărcat de acolo.
+
+Fișierul nu se descarcă pe telefonul persoanei care completează formularul. Dacă Blob Store nu este conectat, formularul afișează o eroare și nu pretinde că răspunsul a fost salvat.
+
+## Notificare opțională prin Telegram
+
+Pe lângă fișierul din Vercel Blob, poți primi opțional și o notificare în Telegram, inclusiv în aplicația de pe PC.
 
 1. Creează un bot prin contul oficial @BotFather în Telegram și păstrează tokenul primit.
 2. Deschide conversația cu botul tău și trimite `/start`.
@@ -22,11 +28,11 @@ Implementarea folosește Telegram: primești notificarea în contul tău, inclus
 
 Documentație: https://core.telegram.org/bots/tutorial și https://core.telegram.org/bots/api#sendmessage
 
-Fără variabile configurate, formularul afișează o eroare sinceră; nu simulează trimiterea. Dacă apare o eroare de rețea, verifică recepția înainte de retrimitere, pentru a evita dublurile.
+Fără variabilele Telegram, salvarea în `raspunsuri.txt` continuă să funcționeze. Dacă apare o eroare de rețea, verifică fișierul înainte de retrimitere, pentru a evita dublurile.
 
 ## Vercel
 
-Importă acest director dintr-un repository Git în Vercel. Framework Preset: **Other**, fără Build Command sau Install Command, Output Directory: **public**. `api/rsvp.js` este funcția Node.js pentru formular. Adaugă variabilele de mai sus, apoi Deploy. Configurația `vercel.json` include directorul public și antete pentru a descuraja indexarea.
+Importă acest director dintr-un repository Git în Vercel. Framework Preset: **Other**, fără Build Command, Output Directory: **public**. Vercel instalează automat dependența `@vercel/blob`. `api/rsvp.js` este funcția Node.js pentru formular. Conectează Blob Store-ul, apoi fă un nou Deploy. Configurația `vercel.json` include directorul public și antete pentru a descuraja indexarea.
 
 Documentație: https://vercel.com/docs/functions/runtimes/node-js
 
