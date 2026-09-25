@@ -17,8 +17,8 @@
 <script defer src="now-chat.js?v=2"></script>
 <link rel="stylesheet" href="voice-notes.css?v=6">
 <script defer src="voice-notes.js?v=3"></script>
-<link rel="stylesheet" href="date-invite.css?v=5">
-<script defer src="date-invite.js?v=5"></script>
+<link rel="stylesheet" href="date-invite.css?v=6">
+<script defer src="date-invite.js?v=6"></script>
 <script defer src="lightbox.js?v=2"></script>
 <script type="module" src="cosmos.js?v=2"></script><script defer src="app.js?v=15"></script>
 </head>
@@ -150,19 +150,21 @@
 <section class="date-invite" aria-labelledby="date-invite-title">
   <div class="invite-heart-rain" aria-hidden="true"><i>♥</i><i>♥</i><i>♥</i><i>♥</i><i>♥</i><i>♥</i><i>♥</i><i>♥</i><i>♥</i><i>♥</i><i>♥</i><i>♥</i></div>
   <div class="invite-copy invite-reveal">
-    <p>URMĂTOAREA NOASTRĂ AMINTIRE</p>
-    <h2 id="date-invite-title">Vrei să ieși<br><em>la o întâlnire cu mine?</em></h2>
-    <div class="invite-hearts" aria-hidden="true">♥ ♥ ♥ ♥ ♥</div>
+    <h2 id="date-invite-title">Dorești o întâlnire?</h2>
+    <button class="invite-submit" id="invite-open" type="button">DA ❤️ 🥰 ❤️</button>
   </div>
-  <form class="date-form invite-reveal" id="date-form">
-    <fieldset class="when-fields">
-      <legend>01 · Când ne vedem?</legend>
+  <dialog id="invite-dialog" aria-label="Întâlnirea noastră">
+  <button id="invite-close" type="button" aria-label="Închide">×</button>
+  <form class="date-form" id="date-form">
+    <fieldset class="when-fields invite-step" id="invite-step-date">
+      <legend>Când dorești? ❤️</legend>
       <input id="invite-date" name="date" type="hidden" required>
       <div class="date-scroll" id="date-scroll" role="radiogroup" aria-label="Alege ziua întâlnirii" tabindex="-1"></div>
       <p class="date-scroll-hint">alege ziua care îți place cel mai mult ♥</p>
+      <button class="invite-submit" id="invite-next" type="button" disabled>Mai departe ❤️</button>
     </fieldset>
-    <fieldset>
-      <legend>02 · Unde mergem?</legend>
+    <fieldset class="invite-step" id="invite-step-place" hidden>
+      <legend>Unde mergem? 🥰</legend>
       <div class="place-grid">
         <label><input type="radio" name="place" value="kfc" required><span><b>🍗</b>KFC</span></label>
         <label><input type="radio" name="place" value="mcdonalds"><span><b>🍔</b>McDonald's</span></label>
@@ -171,12 +173,16 @@
         <label><input type="radio" name="place" value="cinema"><span><b>🎬</b>Cinema</span></label>
         <label class="improvise"><input type="radio" name="place" value="improvizam"><span><b>✧</b>Vom improviza</span></label>
       </div>
+      <button class="invite-submit" type="submit">Trimite ❤️</button>
+      <button id="invite-back" type="button">← Înapoi la dată</button>
     </fieldset>
-    <label class="invite-note"><span>Un gând pentru mine <small>(opțional)</small></span><textarea name="message" maxlength="500" rows="3" placeholder="Abia aștept să…"></textarea></label>
-    <button class="invite-submit" type="submit">Da, vreau întâlnirea <span>♡</span></button>
     <p class="invite-status" role="status" aria-live="polite"></p>
-    <p class="invite-file-note">Răspunsul tău va fi păstrat pentru mine. ♥</p>
   </form>
+  <div id="invite-thanks" hidden tabindex="-1">
+    <img src="images/thankyou.jpg" alt="Thank you" width="220">
+    <p>Aștept cu nerăbdare ❤️</p>
+  </div>
+  </dialog>
 </section>
 <section class="forever-page" aria-labelledby="forever-title">
   <div class="forever-copy">

@@ -3,7 +3,39 @@
   if (!form) return;
   const dateInput = form.querySelector('#invite-date');
   const status = form.querySelector('.invite-status');
-  const button = form.querySelector('.invite-submit');
+  const button = form.querySelector('[type="submit"]');
+  const dialog = document.querySelector('#invite-dialog');
+  const next = document.querySelector('#invite-next');
+  const dateStep = document.querySelector('#invite-step-date');
+  const placeStep = document.querySelector('#invite-step-place');
+  const thanks = document.querySelector('#invite-thanks');
+  let closeTimer;
+  let busy = false;
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  async function switchStep(from, to) {
+    if (busy) return;
+    busy = true;
+    if (!reduceMotion) await from.animate([{ opacity: 1, filter: 'blur(0)', transform: 'scale(1)' }, { opacity: 0, filter: 'blur(12px)', transform: 'scale(.94)' }], { duration: 230 }).finished;
+    from.hidden = true;
+    to.hidden = false;
+    if (!reduceMotion) to.animate([{ opacity: 0, filter: 'blur(12px)', transform: 'scale(1.05)' }, { opacity: 1, filter: 'blur(0)', transform: 'scale(1)' }], { duration: 400 });
+    to.querySelector('button,input')?.focus();
+    busy = false;
+  }
+  document.querySelector('#invite-open').addEventListener('click', () => {
+    clearTimeout(closeTimer);
+    dialog.classList.remove('invite-closing');
+    form.hidden = false;
+    thanks.hidden = true;
+    dateStep.hidden = false;
+    placeStep.hidden = true;
+    status.textContent = '';
+    dialog.showModal();
+  });
+  document.querySelector('#invite-close').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('close', () => clearTimeout(closeTimer));
+  next.addEventListener('click', () => { if (dateInput.value) switchStep(dateStep, placeStep); });
+  document.querySelector('#invite-back').addEventListener('click', () => switchStep(placeStep, dateStep));
   const places = { kfc: 'KFC', mcdonalds: "McDonald's", restaurant: 'Restaurant', kebab: 'Kebab', cinema: 'Cinema', improvizam: 'Vom improviza' };
   const dateScroll = form.querySelector('#date-scroll');
   const monthNames = ['ian', 'feb', 'mar', 'apr', 'mai', 'iun', 'iul', 'aug', 'sept', 'oct', 'nov', 'dec'];
@@ -25,12 +57,14 @@
       choice.classList.add('selected');
       choice.setAttribute('aria-checked', 'true');
       dateInput.value = value;
+      next.disabled = false;
     });
     dateScroll.append(choice);
   });
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
+    if (button.disabled || placeStep.hidden) return;
     if (!dateInput.value) {
       status.textContent = 'Alege mai întâi o zi pentru întâlnirea noastră. ♥';
       dateScroll.focus();
@@ -44,8 +78,12 @@
       const response = await fetch('/api/rsvp', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data), signal: AbortSignal.timeout(15000) });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || 'Răspunsul nu a putut fi trimis.');
-      status.textContent = 'E o întâlnire! Alegerea ta a fost păstrată pentru mine. ♥';
-      form.classList.add('invite-sent');
+      await switchStep(form, thanks);
+      thanks.focus();
+      closeTimer = setTimeout(() => {
+        dialog.classList.add('invite-closing');
+        closeTimer = setTimeout(() => dialog.close(), reduceMotion ? 0 : 650);
+      }, 3200);
     } catch (error) {
       status.textContent = `Răspunsul nu a putut fi păstrat: ${error.message}`;
     } finally { button.disabled = false; }
