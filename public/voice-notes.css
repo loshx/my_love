@@ -10,4 +10,5 @@
 @media(max-width:760px){.voice-page{padding-bottom:145px}.voice-sticker{width:135px;height:135px}.sticker-heart{left:-45px;top:19%}.sticker-head{right:-43px;top:48%}.sticker-love{left:-42px;right:auto;bottom:0}}
 
 /* Let large stickers cross the section boundary without a visible rectangular cut. */
-html,body{overflow-x:clip}.voice-page{overflow:visible}
+html,body{overflow-x:clip}.voice-page{width:100vw;max-width:none;margin-left:calc(50% - 50vw);overflow:visible}
+@media(max-width:760px){.voice-page{padding-left:10px;padding-right:10px}.voice-list{width:100%;max-width:none}.voice-card{width:84%}}
