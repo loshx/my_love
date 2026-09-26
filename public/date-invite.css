@@ -42,7 +42,6 @@
 #invite-dialog [hidden]{display:none!important}
 #invite-dialog .date-form{width:100%;padding:0!important}
 #invite-dialog legend{font:italic 32px 'Playfair Display',Georgia,serif;text-align:center;width:100%;margin-bottom:28px}
-#invite-close{position:absolute;right:14px;top:10px;background:none;border:0;color:#edb6d0;font-size:30px;cursor:pointer}
 #invite-back{display:block;margin:20px auto 0;background:none;border:0;color:#e7abc8;cursor:pointer}
 #invite-open{width:auto;min-width:220px;padding:20px 40px;font-size:22px}
 #invite-thanks{text-align:center;padding:15px 0 25px;outline:none}

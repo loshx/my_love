@@ -32,7 +32,6 @@
     status.textContent = '';
     dialog.showModal();
   });
-  document.querySelector('#invite-close').addEventListener('click', () => dialog.close());
   dialog.addEventListener('close', () => clearTimeout(closeTimer));
   next.addEventListener('click', () => { if (dateInput.value) switchStep(dateStep, placeStep); });
   document.querySelector('#invite-back').addEventListener('click', () => switchStep(placeStep, dateStep));
