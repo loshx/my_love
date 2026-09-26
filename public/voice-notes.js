@@ -18,7 +18,7 @@
     card.innerHTML = `<span class="voice-number">${String(index + 1).padStart(2, '0')}</span><div class="voice-bubble"><button class="voice-play" type="button" ${track.file ? '' : 'disabled'} aria-label="${track.file ? `Redă ${track.title}` : 'Înregistrarea 5 lipsește'}"><span>${track.file ? '▶' : '·'}</span></button><div class="voice-info"><h3>${track.title}</h3><p>${track.note}</p><div class="voice-wave-wrap"><div class="voice-bars" aria-hidden="true">${bars}</div><input class="voice-progress" type="range" min="0" max="100" value="0" step="0.1" ${track.file ? '' : 'disabled'} aria-label="Poziția redării"></div></div><time class="voice-time">${track.file ? '0:00' : 'lipsește'}</time><span class="voice-card-heart" aria-hidden="true">♥</span></div>`;
     list.append(card);
     if (!track.file) return;
-    const audio = new Audio(`images/${track.file}${index < 5 ? '?v=20260926' : ''}`);
+    const audio = new Audio(`images/${track.file}${index < 5 ? '?v=20260926-2' : ''}`);
     audio.preload = 'metadata';
     const play = card.querySelector('.voice-play');
     const icon = play.querySelector('span');
