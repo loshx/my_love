@@ -3,10 +3,17 @@ import assert from 'node:assert/strict';
 import handler from '../api/rsvp.js';
 import { config } from '../public/config.js';
 const valid = { date: config.dates[0].id, place: config.places[0].id, message: 'Abia aștept ♡' };
-async function request(body = valid, method = 'POST', headers = {}) {
+async function request(body = valid, method = 'POST', headers = {}, saveInvitation) {
   const res = { headers: {}, setHeader(k, v) { this.headers[k] = v; }, status(code) { this.code = code; return this; }, json(data) { this.data = data; return this; } };
-  await handler({ method, body, headers }, res); return res;
+  await handler({ method, body, headers, saveInvitation }, res); return res;
 }
+test('local server saves the date and place selected in the wizard', async () => {
+  let saved;
+  const response = await request({ date: '2026-09-28', place: 'cinema', message: '' }, 'POST', {}, async text => { saved = text; });
+  assert.equal(response.code, 200);
+  assert.match(saved, /2026-09-28/);
+  assert.match(saved, /Cinema/);
+});
 test('rejects unsupported method, invalid options, malformed JSON and cross-site submissions', async () => {
   assert.equal((await request(valid, 'GET')).code, 405);
   assert.equal((await request({ ...valid, place: 'unknown' })).code, 400);

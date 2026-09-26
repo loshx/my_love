@@ -1,5 +1,5 @@
 import http from 'node:http';
-import { readFile } from 'node:fs/promises';
+import { readFile, appendFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import handler from './api/rsvp.js';
 try { process.loadEnvFile(); } catch {}
@@ -11,6 +11,10 @@ http.createServer(async (req, res) => {
     if (url.pathname === '/api/rsvp') {
       let body = ''; for await (const chunk of req) { body += chunk; if (Buffer.byteLength(body) > 8192) { res.writeHead(413); res.end(); return; } }
       req.body = body; res.status = code => { res.statusCode = code; return res; }; res.json = value => { res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(value)); };
+      req.saveInvitation = async text => {
+        await mkdir('data', { recursive: true });
+        await appendFile('data/raspunsuri.txt', `${text}\n\n────────────────────\n`, 'utf8');
+      };
       await handler(req, res); return;
     }
     const file = path.resolve(root, '.' + decodeURIComponent(url.pathname === '/' ? '/index.html' : url.pathname));

@@ -6,4 +6,4 @@ if (-not (Test-Path -LiteralPath $nodePath)) {
     throw 'Node.js nu este disponibil. Instaleaza Node.js 22 sau mai nou, apoi ruleaza din nou.'
 }
 Write-Host 'Site local: http://127.0.0.1:3000. Pentru oprire: Ctrl+C.'
-& $nodePath server.mjs
+& $nodePath --watch server.mjs

@@ -13,18 +13,22 @@ export default async function handler(req, res) {
   const placeLabel = configuredPlace?.label || invitePlaces[place];
   const isNewInvitation = Boolean(invitePlaces[place]);
   const validWhen = isNewInvitation ? customDate : Boolean(configuredDate);
-  if (!validWhen || !placeLabel || typeof message !== 'string' || message.length > 500) return res.status(400).json({ error: 'Alege o zi, o oră și un loc din invitație.' });
+  if (!validWhen || !placeLabel || typeof message !== 'string' || message.length > 500) return res.status(400).json({ error: 'Alege o dată și un loc din invitație.' });
   const when = isNewInvitation ? date : `${configuredDate.label}, ${configuredDate.detail}`;
   const savedAt = new Intl.DateTimeFormat('ro-RO', { dateStyle: 'long', timeStyle: 'medium', timeZone: 'Europe/Chisinau' }).format(new Date());
   const text = `♡ A acceptat invitația!\n\nCând: ${when}\nUnde: ${placeLabel}\nMesaj: ${message.trim() || 'Fără mesaj, doar dragoste. ♡'}\nPrimit: ${savedAt}`;
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return res.status(503).json({ error: 'Spațiul de păstrare nu este configurat încă. ♡' });
+  if (!req.saveInvitation && !process.env.BLOB_READ_WRITE_TOKEN) return res.status(503).json({ error: 'Spațiul de păstrare nu este configurat încă. ♡' });
   try {
+    if (req.saveInvitation) {
+      await req.saveInvitation(text);
+    } else {
     const blob = globalThis.__blobTest || await import('@vercel/blob');
     const pathname = 'raspunsuri.txt';
     const existing = await blob.get(pathname, { access: 'private' });
     const oldText = existing?.statusCode === 200 ? await new Response(existing.stream).text() : 'RĂSPUNSURILE INVITAȚIEI\n';
     const separator = oldText.endsWith('\n') ? '\n' : '\n\n';
     await blob.put(pathname, `${oldText}${separator}${text}\n\n────────────────────\n`, { access: 'private', allowOverwrite: true, contentType: 'text/plain; charset=utf-8', cacheControlMaxAge: 60 });
+    }
   } catch { return res.status(502).json({ error: 'Nu am putut salva răspunsul pe server. Încearcă din nou. ♡' }); }
   const token = process.env.TELEGRAM_BOT_TOKEN, chatId = process.env.TELEGRAM_CHAT_ID;
   if (token && chatId) {
