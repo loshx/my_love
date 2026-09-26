@@ -21,13 +21,11 @@ test('rejects unsupported method, invalid options, malformed JSON and cross-site
   assert.equal((await request('{')).code, 400);
   assert.equal((await request(valid, 'POST', { 'sec-fetch-site': 'cross-site' })).code, 403);
 });
-test('requires storage and appends configured labels to the server file', async () => {
+test('uses the connected Blob store and appends configured labels to the server file', async () => {
   const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
   let stored = 'RĂSPUNSURILE INVITAȚIEI\n';
   try {
     delete process.env.BLOB_READ_WRITE_TOKEN;
-    assert.equal((await request()).code, 503);
-    process.env.BLOB_READ_WRITE_TOKEN = 'test-blob-token';
     globalThis.__blobTest = {
       get: async () => ({ statusCode: 200, stream: new Blob([stored]).stream() }),
       put: async (_path, content) => { stored = content; }

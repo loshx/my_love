@@ -17,7 +17,6 @@ export default async function handler(req, res) {
   const when = isNewInvitation ? date : `${configuredDate.label}, ${configuredDate.detail}`;
   const savedAt = new Intl.DateTimeFormat('ro-RO', { dateStyle: 'long', timeStyle: 'medium', timeZone: 'Europe/Chisinau' }).format(new Date());
   const text = `♡ A acceptat invitația!\n\nCând: ${when}\nUnde: ${placeLabel}\nMesaj: ${message.trim() || 'Fără mesaj, doar dragoste. ♡'}\nPrimit: ${savedAt}`;
-  if (!req.saveInvitation && !process.env.BLOB_READ_WRITE_TOKEN) return res.status(503).json({ error: 'Spațiul de păstrare nu este configurat încă. ♡' });
   try {
     if (req.saveInvitation) {
       await req.saveInvitation(text);
